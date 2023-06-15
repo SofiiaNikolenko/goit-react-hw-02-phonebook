@@ -15,23 +15,6 @@ class App extends Component {
     filter: '',
   };
 
-  handleCnangeFilter = event => {
-    this.setState({ filter: event.target.value });
-  };
-
-  deleteContact = idContact => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(({ id }) => id !== idContact),
-    }));
-  };
-
-  findContacts = () => {
-    const сontactMatches = this.state.contacts.filter(({ name }) =>
-      name.toUpperCase().includes(this.state.filter.toUpperCase())
-    );
-    return сontactMatches;
-  };
-
   handleSubmit = (values, actions) => {
     const contactId = nanoid();
 
@@ -48,6 +31,23 @@ class App extends Component {
     }));
 
     actions.resetForm();
+  };
+
+  handleCnangeFilter = event => {
+    this.setState({ filter: event.target.value });
+  };
+
+  findContacts = () => {
+    const сontactMatches = this.state.contacts.filter(({ name }) =>
+      name.toLocaleLowerCase().includes(this.state.filter.toLocaleLowerCase())
+    );
+    return сontactMatches;
+  };
+
+  deleteContact = idContact => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(({ id }) => id !== idContact),
+    }));
   };
 
   render() {

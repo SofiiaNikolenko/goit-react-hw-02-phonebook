@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
   state = {
@@ -19,9 +20,9 @@ class ContactForm extends Component {
     }
 
     this.props.onSubmit({ ...this.state, id: contactId });
+
     event.target.name.value = '';
     event.target.number.value = '';
-
     this.reset();
   };
 
@@ -70,3 +71,14 @@ class ContactForm extends Component {
 }
 
 export default ContactForm;
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};
